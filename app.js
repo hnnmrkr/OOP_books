@@ -4,10 +4,13 @@ const ls = new LS()
 
 // Event elements
 const form = document.querySelector('form');
+const bookList = document.querySelector('#book-list')
 
 // Events
 form.addEventListener('submit', addBook);
 document.addEventListener('DMContentLoaded', getBooks);
+bookList.addEventListener('click', delBook);
+
 
 function getBooks() {
     let books = ls.getData('books')
@@ -38,5 +41,6 @@ function addBook(event){
     titleInput.value = '';
     authorInput.value = '';
     isbnInput.value = '';
+
     event.preventDefault();
 }
