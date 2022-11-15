@@ -7,9 +7,9 @@ const form = document.querySelector('form');
 
 // Events
 form.addEventListener('submit', addBook);
-document.addEventListener('DMContentLoaded', getBooksFromLocalStorage);
+document.addEventListener('DMContentLoaded', getBooks);
 
-function getBooksFromLocalStorage {
+function getBooks() {
     let books = ls.getData('books')
     for (let i = 0; i < books.length; i++){
         let book = books[i];
