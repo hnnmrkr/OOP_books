@@ -5,7 +5,17 @@ const ls = new LS()
 // Event elements
 const form = document.querySelector('form');
 
-form.addEventListener('submit', addBook)
+// Events
+form.addEventListener('submit', addBook);
+document.addEventListener('DMContentLoaded', getBooksFromLocalStorage);
+
+function getBooksFromLocalStorage {
+    let books = ls.getData('books')
+    for (let i = 0; i < books.length; i++){
+        let book = books[i];
+        ui.addBook(book)
+    }
+}
 
 //Add Book
 function addBook(event){
