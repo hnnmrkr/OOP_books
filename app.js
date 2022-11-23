@@ -2,45 +2,58 @@
 const ui = new UI()
 const ls = new LS()
 
-// Event elements
-const form = document.querySelector('form');
+// user input form
+const form = document.querySelector('#book-form')
+form.addEventListener('submit', addBook)
+
+// page reload
+document.addEventListener('DOMContentLoaded', getBooks)
+
+// books table click event
 const bookList = document.querySelector('#book-list')
+bookList.addEventListener('click', delBook)
 
-// Events
-form.addEventListener('submit', addBook);
-document.addEventListener('DMContentLoaded', getBooks);
-bookList.addEventListener('click', delBook);
+// book filter keyboard event
+const filter = document.querySelector("#filter")
+filter.addEventListener('keyup', filterBook)
 
+function filterBook(event){
+    let filter = event.target.value.toLowerCase()
+    ui.filterData(filter)
+}
+
+function delBook(event){
+    if(event.target.textContent === 'X'){
+        const book = ui.getBook(event.target)
+        if(ui.delBook(event.target) === true){
+            ls.delBook(book)
+        }
+    }
+}
 
 function getBooks() {
-    let books = ls.getData('books')
-    for (let i = 0; i < books.length; i++){
-        let book = books[i];
-        ui.addBook(book)
-    }
+    const books = ls.getData('books')
+    books.forEach(function (booksFromLS){
+        ui.addBook(booksFromLS)
+    })
 }
 
 //Add Book
 function addBook(event){
-    // Get input values
-    const titleInput = document.querySelector('#book-title');
-    const authorInput = document.querySelector('#author');
-    const isbnInput = document.querySelector('#isbn');
-
-    let title = titleInput.value;
-    let author = authorInput.value;
-    let isbn = isbnInput.value;
-
-    // Create book
-    const book = new Book (title, author, isbn)
-    // Add Book value to visual by UI
+    // get form data from form input
+    const title = ui.title.value
+    const author = ui.author.value
+    const isbn = ui.isbn.value
+    // create book object with user data
+    const book = new Book(title, author, isbn)
+    console.log(book)
+    // add book data to ui and show it
     ui.addBook(book)
-    // add book to LS
+    // save book data to ls
     ls.addBook(book)
-
-    titleInput.value = '';
-    authorInput.value = '';
-    isbnInput.value = '';
-
-    event.preventDefault();
+    // clear form input value
+    ui.title.value = ''
+    ui.author.value = ''
+    ui.isbn.value = ''
+    event.preventDefault()
 }

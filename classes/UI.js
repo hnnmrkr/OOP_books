@@ -1,43 +1,45 @@
 class UI {
-    // help function to add DOM element
-    addUIElement(name, classname = '', textcontent = '', attributes = {}){
-        // create element
-        const element = document.createElement(name);
-        // add css style class to element
-        if (classname !== ''){
-            element.className = classname
-        }
-        // add text content to element
-        element.appendChild(document.createTextNode(textcontent))
-        // add attributes to element
-        if (Object.keys(attributes).length > 0){
-            for (let key in attributes){
-                element.setAttribute(key, attributes[key])
-            }
-        }
-        return element
+    constructor() {
+        this.title = document.querySelector('#title')
+        this.author = document.querySelector('#author')
+        this.isbn = document.querySelector('#isbn')
+        this.bookList = document.querySelector('#book-list')
     }
     addBook(book){
-        //Create tr
-        const tr = this.addUIElement('tr');
-        // td for title, author and isbn
-        for (let name in book){
-            // Create td
-            let td = this.addUIElement('td','', book[name])
-            // Add td to tr
-            tr.appendChild(td);
+        const tr = document.createElement('tr')
+        tr.setAttribute('class', 'book-row')
+        tr.innerHTML = `<td>${book.title}</td>
+                <td>${book.author}</td>
+                <td>${book.isbn}</td>
+                <td><a href="#">X</a></td>`
+        this.bookList.appendChild(tr)
+    }
+
+    getBook(click){
+        let isbn = click.parentElement.previousElementSibling.textContent
+        let author = click.parentElement.previousElementSibling.previousElementSibling.textContent
+        let title = click.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent
+        const book = new Book(title, author, isbn)
+        return book
+    }
+
+    delBook(click){
+        if(confirm('Do you realy want to delete this book?')) {
+            click.parentElement.parentElement.remove()
+            return true
+        } else {
+            return false
         }
-        // X link
-        // Create td
-        let td = this.addUIElement('td');
-        // Create a
-        const link = this.addUIElement('a', '', 'X', {'href':'#'});
-        // add link to td
-        td.appendChild(link);
-        //add td to tr
-        tr.appendChild(td);
-        // add tr to tbody
-        const booksList = document.querySelector('#books-list');
-        booksList.appendChild(tr);
+    }
+
+    filterData(filter){
+        let bookListData = document.querySelectorAll('.book-row')
+        bookListData.forEach(function (trContent){
+            if(trContent.textContent.toLowerCase().indexOf(filter) !== -1){
+                trContent.style.display = '';
+            } else {
+                trContent.style.display = 'none'
+            }
+        })
     }
 }
