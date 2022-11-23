@@ -1,19 +1,19 @@
-// UI and LS objects
+// app objects
 const ui = new UI()
 const ls = new LS()
 
-// user input form
+// Add book
 const form = document.querySelector('#book-form')
 form.addEventListener('submit', addBook)
 
-// page reload
+//Get books
 document.addEventListener('DOMContentLoaded', getBooks)
 
-// books table click event
+//Delete boooks
 const bookList = document.querySelector('#book-list')
 bookList.addEventListener('click', delBook)
 
-// book filter keyboard event
+//Filter books
 const filter = document.querySelector("#filter")
 filter.addEventListener('keyup', filterBook)
 

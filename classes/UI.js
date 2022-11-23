@@ -24,7 +24,7 @@ class UI {
     }
 
     delBook(click){
-        if(confirm('Do you realy want to delete this book?')) {
+        if(confirm('Are you sure you want to delete?')) {
             click.parentElement.parentElement.remove()
             return true
         } else {
