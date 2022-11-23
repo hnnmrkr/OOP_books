@@ -9,7 +9,7 @@ form.addEventListener('submit', addBook)
 //Get books
 document.addEventListener('DOMContentLoaded', getBooks)
 
-//Delete boooks
+//Delete books
 const bookList = document.querySelector('#book-list')
 bookList.addEventListener('click', delBook)
 
