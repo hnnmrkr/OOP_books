@@ -2,15 +2,12 @@
 const ui = new UI()
 const ls = new LS()
 
-// Add book
+// elements
 const form = document.querySelector('#book-form')
-form.addEventListener('submit', addBook)
-
-//Get books
-document.addEventListener('DOMContentLoaded', getBooks)
-
-//Delete books
 const bookList = document.querySelector('#book-list')
+// events
+form.addEventListener('submit', addBook)
+document.addEventListener('DOMContentLoaded', getBooks)
 bookList.addEventListener('click', delBook)
 
 //Filter books
@@ -24,20 +21,21 @@ function filterBook(event){
 
 function delBook(event){
     if(event.target.textContent === 'X'){
-        const book = ui.getBook(event.target)
+        const book =ui.getBook(event.target)
         if(ui.delBook(event.target) === true){
             ls.delBook(book)
         }
     }
 }
 
-function getBooks() {
+function getBooks(){
+    // get data from LS
     const books = ls.getData('books')
+    // for each book in books
     books.forEach(function (booksFromLS){
         ui.addBook(booksFromLS)
     })
 }
-
 //Add Book
 function addBook(event){
     // get form data from form input

@@ -1,6 +1,6 @@
 class UI {
     constructor() {
-        this.title = document.querySelector('#title')
+        this.title = document.querySelector('#book-title')
         this.author = document.querySelector('#author')
         this.isbn = document.querySelector('#isbn')
         this.bookList = document.querySelector('#book-list')
